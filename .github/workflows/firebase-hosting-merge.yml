@@ -18,3 +18,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPACE_WARS_A2009 }}
           channelId: live
           projectId: space-wars-a2009
+          public: 'public'

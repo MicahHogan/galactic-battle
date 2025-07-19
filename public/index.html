@@ -6,89 +6,12 @@
     <title>Galactic Battle</title>
     <!-- Content Security Policy: A basic policy. YOU SHOULD CUSTOMIZE THIS FOR YOUR DEPLOYMENT. -->
     <!-- This allows scripts from self, Firebase, Font Awesome, Google Fonts, and inline styles/scripts. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' [https://www.gstatic.com](https://www.gstatic.com) [https://cdnjs.cloudflare.com](https://cdnjs.cloudflare.com); script-src 'self' 'unsafe-inline' [https://www.gstatic.com](https://www.gstatic.com) [https://cdnjs.cloudflare.com](https://cdnjs.cloudflare.com); style-src 'self' 'unsafe-inline' [https://cdnjs.cloudflare.com](https://cdnjs.cloudflare.com) [https://fonts.googleapis.com](https://fonts.googleapis.com); font-src 'self' [https://cdnjs.cloudflare.com](https://cdnjs.cloudflare.com) [https://fonts.gstatic.com](https://fonts.gstatic.com); connect-src 'self' [https://www.gstatic.com](https://www.gstatic.com) [https://firestore.googleapis.com](https://firestore.googleapis.com) [https://securetoken.googleapis.com](https://securetoken.googleapis.com) [https://identitytoolkit.googleapis.com](https://identitytoolkit.googleapis.com); img-src 'self' data:; media-src 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://www.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; connect-src 'self' https://www.gstatic.com https://firestore.googleapis.com https://securetoken.googleapis.com https://identitytoolkit.googleapis.com; img-src 'self' data:; media-src 'self';">
     <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css)">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Font: Metal Mania for the title - Added font-display: swap for better loading -->
-    <link href="[https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap](https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap)" rel="stylesheet">
-    <style>
-        body {margin:0;padding:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:'Courier New',monospace;color:#00ff00;overflow:hidden;}
-        #gameContainer {position:relative;background:#000;border:2px solid #00ff00;max-width:100vw;max-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;}
-        #gameCanvas {display:block;background:#000;max-width:100%;max-height:100%;}
-        #ui {position:absolute;top:10px;left:10px;font-size:18px;z-index:10;}
-        .top-right-controls {position:absolute;top:10px;right:10px;z-index:10;display:flex;gap:10px;}
-        #soundToggle, #pauseToggle {background:#000;color:#00ff00;border:2px solid #00ff00;padding:5px 10px;cursor:pointer;font-family:'Courier New',monospace;font-size:14px;border-radius:50%;box-shadow:0 0 5px #00ff00;transition:all 0.2s ease-in-out;display:flex;align-items:center;justify-content:center;width:40px;height:40px;}
-        #soundToggle:hover, #pauseToggle:hover {background:#00ff00;color:#000;box-shadow:0 0 15px #00ff00;}
-        #gameOver, #levelComplete, #initialsInputContainer {position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:24px;display:none;flex-direction:column;justify-content:center;align-items:center;z-index:20;background:rgba(0,0,0,0.8);padding:20px;width:80%;max-width:500px;box-sizing:border-box;border-radius:10px;border:2px solid #00ff00;box-shadow:0 0 20px #00ff00;}
-        #gameOverTitle {font-family:'Metal Mania',cursive;font-size:48px;font-weight:bold;text-shadow:-2px -2px 0 #00ff00,2px -2px 0 #00ff00,-2px 2px 0 #00ff00,2px 2px 0 #00ff00,0 0 15px #00ff00;margin-bottom:10px;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:0;cursor:pointer;transition:transform 0.2s ease-in-out;}
-        #gameOverTitle:hover {transform:scale(1.05);}
-        #gameOverTitle span {display:inline-block;animation:rainbow-text 9s linear infinite;text-shadow:none;}
-        #gameOverTitle .rocket-icon {font-size:0.8em;color:#FFFFFF;text-shadow:0 0 10px #FFFFFF;animation:pulse-glow 1.5s infinite alternate;}
-        #countdown {position:absolute;top:70%;left:50%;transform:translateX(-50%);font-size:36px;color:#ffff00;text-shadow:0 0 10px #ffff00;display:none;z-index:25;}
-        #instructions {position:absolute;bottom:10px;left:10px;font-size:14px;color:#00aa00;z-index:5;display:none;}
-        #gameStartOverlay {position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:flex;flex-direction:column;justify-content:center;align-items:center;color:#00ff00;font-size:30px;text-shadow:0 0 10px #00ff00;z-index:30;}
-        #gameStartOverlay #gameTitle {font-family:'Metal Mania',cursive;font-size:60px;font-weight:bold;text-shadow:-3px -3px 0 #00ff00,3px -3px 0 #00ff00,-3px 3px 0 #00ff00,3px 3px 0 #00ff00,0 0 20px #00ff00;margin-bottom:20px;letter-spacing:3px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:0;}
-        #gameStartOverlay #gameTitle span {display:inline-block;animation:rainbow-text 9s linear infinite;text-shadow:none;}
-        #gameStartOverlay #gameTitle .rocket-icon {font-size:0.8em;color:#FFFFFF;text-shadow:0 0 10px #FFFFFF;animation:pulse-glow 1.5s infinite alternate;}
-        @keyframes pulse-glow {from{text-shadow:0 0 5px #FFFFFF,0 0 10px #FFFFFF;}to{text-shadow:0 0 15px #FFFFFF,0 0 25px #FFFFFF;}}
-        @keyframes rainbow-text {0%{color:hsl(calc(0deg + var(--hue-offset, 0deg)), 100%, 65%);}16.67%{color:hsl(calc(60deg + var(--hue-offset, 0deg)), 100%, 65%);}33.33%{color:hsl(calc(120deg + var(--hue-offset, 0deg)), 100%, 65%);}50%{color:hsl(calc(180deg + var(--hue-offset, 0deg)), 100%, 65%);}66.67%{color:hsl(calc(240deg + var(--hue-offset, 0deg)), 100%, 65%);}83.33%{color:hsl(calc(300deg + var(--hue-offset, 0deg)), 100%, 65%);}100%{color:hsl(calc(360deg + var(--hue-offset, 0deg)), 100%, 65%);}}
-        #gameStartOverlay div {margin:5px 0;}
-        #gameStartOverlay .small-text {font-size:18px;color:#00aa00;}
-        #mobileControls {position:absolute;bottom:0;left:0;right:0;display:none;z-index:15;height:100px;width:100%;box-sizing:border-box;}
-        #mobileControls.show {display:flex;justify-content:space-between;align-items:center;padding:0 20px;}
-        .control-btn {background:rgba(0,255,0,0.2);border:2px solid #00ff00;color:#00ff00;width:60px;height:60px;border-radius:50%;font-size:24px;font-weight:bold;display:flex;align-items:center;justify-content:center;user-select:none;touch-action:manipulation;box-shadow:0 0 5px #00ff00;transition:background 0.2s;}
-        .control-btn:active {background:rgba(0,255,0,0.4);box-shadow:0 0 15px #00ff00;}
-        #shootBtn {width:80px;height:80px;font-size:30px;}
-        button {background:#000;color:#00ff00;border:2px solid #00ff00;padding:10px 20px;margin:10px;cursor:pointer;font-family:'Courier New',monospace;font-size:16px;border-radius:5px;box-shadow:0 0 5px #00ff00;transition:all 0.2s ease-in-out;}
-        button:hover {background:#00ff00;color:#000;box-shadow:0 0 15px #00ff00;}
-        #leaderboard {margin-top:20px;font-size:18px;max-height:300px;overflow-y:auto;border:1px solid #00aa00;padding:10px;text-align:left;width:100%;box-sizing:border-box;}
-        #leaderboard div {padding:5px 0;border-bottom:1px dotted #00aa00;}
-        #leaderboard div:last-child {border-bottom:none;}
-        #initialsInput {background:rgba(0,0,0,0.5);border:1px solid #00ff00;color:#00ff00;font-family:'Courier New',monospace;font-size:20px;width:80px;text-align:center;padding:5px;margin-top:10px;text-transform:uppercase;}
-        #keyboard {display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-top:15px;max-width:400px;margin-left:auto;margin-right:auto;}
-        .key-btn {background:rgba(0,255,0,0.1);border:1px solid #00ff00;color:#00ff00;padding:8px;font-size:16px;cursor:pointer;border-radius:3px;user-select:none;transition:background 0.1s;}
-        .key-btn:active {background:rgba(0,255,0,0.3);}
-        .key-btn.space {grid-column:span 4;}
-        .key-btn.backspace {grid-column:span 2;}
-        .key-btn.enter {grid-column:span 2;}
-
-        /* Responsive adjustments */
-        @media (max-width:900px){
-            #ui {font-size:16px;}
-            #soundToggle, #pauseToggle {font-size:12px;padding:3px 6px;width:35px;height:35px;}
-            #gameOver, #levelComplete, #initialsInputContainer {font-size:20px;padding:15px;}
-            #gameOverTitle {font-size:36px;}
-            #countdown {font-size:30px;top:65%;}
-            #levelComplete {top:50%;}
-            #instructions {display:none;}
-            #gameStartOverlay #gameTitle {font-size:48px;}
-            #gameStartOverlay {font-size:24px;}
-            #gameStartOverlay .small-text {font-size:16px;}
-            #leaderboard {font-size:16px;max-height:250px;}
-            #initialsInput {font-size:18px;width:70px;}
-            #keyboard {grid-template-columns:repeat(10,1fr);gap:3px;max-width:300px;}
-            .key-btn {font-size:14px;padding:6px;}
-            #gameContainer {flex-direction: column; justify-content: flex-start; height: 100vh;} /* Adjust container for mobile layout */
-            #gameCanvas {flex-grow: 1; width: 100%; height: auto;} /* Canvas takes available space */
-            #mobileControls {position: relative; bottom: 0; width: 100%; height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; box-sizing: border-box;}
-        }
-
-        @media (max-width:600px){
-            #gameContainer {border:1px solid #00ff00;}
-            #ui {font-size:14px;top:5px;left:5px;}
-            #soundToggle, #pauseToggle {font-size:10px;padding:2px 4px;width:30px;height:30px;}
-            #gameOver, #levelComplete, #initialsInputContainer {font-size:16px;padding:10px;}
-            #gameOverTitle {font-size:28px;}
-            #countdown {font-size:28px;top:65%;}
-            #levelComplete {top:50%;}
-            #leaderboard {font-size:14px;max-height:200px;}
-            #initialsInput {font-size:16px;width:60px;}
-            #keyboard {grid-template-columns:repeat(9,1fr);gap:2px;max-width:280px;}
-            .key-btn {font-size:12px;padding:4px;}
-            .key-btn.space {grid-column:span 3;}
-            .key-btn.backspace {grid-column:span 2;}
-            .key-btn.enter {grid-column:span 2;}
-        </style>
+    <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
+    <style>body{margin:0;padding:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:'Courier New',monospace;color:#00ff00;overflow:hidden;}#gameContainer{position:relative;background:#000;border:2px solid #00ff00;max-width:100vw;max-height:100vh;}#gameCanvas{display:block;background:#000;max-width:100%;max-height:100%;}#ui{position:absolute;top:10px;left:10px;font-size:18px;z-index:10;}.top-right-controls{position:absolute;top:10px;right:10px;z-index:10;display:flex;gap:10px;}#soundToggle,#pauseToggle{background:#000;color:#00ff00;border:2px solid #00ff00;padding:5px 10px;cursor:pointer;font-family:'Courier New',monospace;font-size:14px;border-radius:50%;box-shadow:0 0 5px #00ff00;transition:all 0.2s ease-in-out;display:flex;align-items:center;justify-content:center;width:40px;height:40px;}#soundToggle:hover,#pauseToggle:hover{background:#00ff00;color:#000;box-shadow:0 0 15px #00ff00;}#gameOver,#levelComplete,#initialsInputContainer{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:24px;display:none;flex-direction:column;justify-content:center;align-items:center;z-index:20;background:rgba(0,0,0,0.8);padding:20px;width:80%;max-width:500px;box-sizing:border-box;border-radius:10px;border:2px solid #00ff00;box-shadow:0 0 20px #00ff00;}#gameOverTitle{font-family:'Metal Mania',cursive;font-size:48px;font-weight:bold;text-shadow:-2px -2px 0 #00ff00,2px -2px 0 #00ff00,-2px 2px 0 #00ff00,2px 2px 0 #00ff00,0 0 15px #00ff00;margin-bottom:10px;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:0;cursor:pointer;transition:transform 0.2s ease-in-out;}#gameOverTitle:hover{transform:scale(1.05);}#gameOverTitle span{display:inline-block;animation:rainbow-text 9s linear infinite;text-shadow:none;}#gameOverTitle .rocket-icon{font-size:0.8em;color:#FFFFFF;text-shadow:0 0 10px #FFFFFF;animation:pulse-glow 1.5s infinite alternate;}#countdown{position:absolute;top:70%;left:50%;transform:translateX(-50%);font-size:36px;color:#ffff00;text-shadow:0 0 10px #ffff00;display:none;z-index:25;}#instructions{position:absolute;bottom:10px;left:10px;font-size:14px;color:#00aa00;z-index:5;display:none;}#gameStartOverlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:flex;flex-direction:column;justify-content:center;align-items:center;color:#00ff00;font-size:30px;text-shadow:0 0 10px #00ff00;z-index:30;}#gameStartOverlay #gameTitle{font-family:'Metal Mania',cursive;font-size:60px;font-weight:bold;text-shadow:-3px -3px 0 #00ff00,3px -3px 0 #00ff00,-3px 3px 0 #00ff00,3px 3px 0 #00ff00,0 0 20px #00ff00;margin-bottom:20px;letter-spacing:3px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:0;}#gameStartOverlay #gameTitle span{display:inline-block;animation:rainbow-text 9s linear infinite;text-shadow:none;}#gameStartOverlay #gameTitle .rocket-icon{font-size:0.8em;color:#FFFFFF;text-shadow:0 0 10px #FFFFFF;animation:pulse-glow 1.5s infinite alternate;}@keyframes pulse-glow{from{text-shadow:0 0 5px #FFFFFF,0 0 10px #FFFFFF;}to{text-shadow:0 0 15px #FFFFFF,0 0 25px #FFFFFF;}}@keyframes rainbow-text{0%{color:hsl(calc(0deg + var(--hue-offset, 0deg)), 100%, 65%);}16.67%{color:hsl(calc(60deg + var(--hue-offset, 0deg)), 100%, 65%);}33.33%{color:hsl(calc(120deg + var(--hue-offset, 0deg)), 100%, 65%);}50%{color:hsl(calc(180deg + var(--hue-offset, 0deg)), 100%, 65%);}66.67%{color:hsl(calc(240deg + var(--hue-offset, 0deg)), 100%, 65%);}83.33%{color:hsl(calc(300deg + var(--hue-offset, 0deg)), 100%, 65%);}100%{color:hsl(calc(360deg + var(--hue-offset, 0deg)), 100%, 65%);}}#gameStartOverlay div{margin:5px 0;}#gameStartOverlay .small-text{font-size:18px;color:#00aa00;}#mobileControls{position:absolute;bottom:10px;left:0;right:0;display:none;z-index:15;height:80px;}#mobileControls.show{display:flex;justify-content:space-between;align-items:center;padding:0 20px;}.control-btn{background:rgba(0,255,0,0.2);border:2px solid #00ff00;color:#00ff00;width:60px;height:60px;border-radius:50%;font-size:24px;font-weight:bold;display:flex;align-items:center;justify-content:center;user-select:none;touch-action:manipulation;}.control-btn:active{background:rgba(0,255,0,0.4);}#shootBtn{width:80px;height:80px;font-size:16px;}button{background:#000;color:#00ff00;border:2px solid #00ff00;padding:10px 20px;margin:10px;cursor:pointer;font-family:'Courier New',monospace;font-size:16px;border-radius:5px;box-shadow:0 0 5px #00ff00;transition:all 0.2s ease-in-out;}button:hover{background:#00ff00;color:#000;box-shadow:0 0 15px #00ff00;}#leaderboard{margin-top:20px;font-size:18px;max-height:300px;overflow-y:auto;border:1px solid #00aa00;padding:10px;text-align:left;width:100%;box-sizing:border-box;}#leaderboard div{padding:5px 0;border-bottom:1px dotted #00aa00;}#leaderboard div:last-child{border-bottom:none;}#initialsInput{background:rgba(0,0,0,0.5);border:1px solid #00ff00;color:#00ff00;font-family:'Courier New',monospace;font-size:20px;width:80px;text-align:center;padding:5px;margin-top:10px;text-transform:uppercase;}#keyboard{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-top:15px;max-width:400px;margin-left:auto;margin-right:auto;}.key-btn{background:rgba(0,255,0,0.1);border:1px solid #00ff00;color:#00ff00;padding:8px;font-size:16px;cursor:pointer;border-radius:3px;user-select:none;transition:background 0.1s;}.key-btn:active{background:rgba(0,255,0,0.3);}.key-btn.space{grid-column:span 4;}.key-btn.backspace{grid-column:span 2;}.key-btn.enter{grid-column:span 2;}@media (max-width:900px){#ui{font-size:16px;}#soundToggle,#pauseToggle{font-size:12px;padding:3px 6px;width:35px;height:35px;}#gameOver,#levelComplete,#initialsInputContainer{font-size:20px;padding:15px;}#gameOverTitle{font-size:36px;}#countdown{font-size:30px;top:65%;}#levelComplete{top:50%;}#instructions{display:none;}#gameStartOverlay #gameTitle{font-size:48px;}#gameStartOverlay{font-size:24px;}#gameStartOverlay .small-text{font-size:16px;}#leaderboard{font-size:16px;max-height:250px;}#initialsInput{font-size:18px;width:70px;}#keyboard{grid-template-columns:repeat(10,1fr);gap:3px;max-width:300px;}.key-btn{font-size:14px;padding:6px;}}@media (max-width:600px){#gameContainer{border:1px solid #00ff00;}#ui{font-size:14px;top:5px;left:5px;}#soundToggle,#pauseToggle{font-size:10px;padding:2px 4px;width:30px;height:30px;}#gameOver,#levelComplete,#initialsInputContainer{font-size:16px;padding:10px;}#gameOverTitle{font-size:28px;}#countdown{font-size:28px;top:65%;}#levelComplete{top:50%;}#leaderboard{font-size:14px;max-height:200px;}#initialsInput{font-size:16px;width:60px;}#keyboard{grid-template-columns:repeat(9,1fr);gap:2px;max-width:280px;}.key-btn{font-size:12px;padding:4px;}.key-btn.space{grid-column:span 3;}.key-btn.backspace{grid-column:span 2;}.key-btn.enter{grid-column:span 2;}}</style>
 </head>
 <body>
     <div id="gameContainer">
@@ -136,7 +59,7 @@
                 <span class="rocket-icon"><i class="fas fa-rocket"></i></span>
                 <span>B</span><span>a</span><span>t</span><span>t</span><span>l</span><span>e</span>
             </div>
-            <div>Press SPACE or tap to begin</div>
+            <div>Press SPACE to begin</div>
             <div class="small-text desktop-instruction">Use A/D or Arrow Keys to move</div>
             <div class="small-text desktop-instruction">SPACE to shoot</div>
             <div class="small-text desktop-instruction">P to pause/unpause</div>
@@ -144,43 +67,29 @@
         </div>
         <div id="mobileControls">
             <div class="control-btn" id="leftBtn">←</div>
-            <div class="control-btn" id="shootBtn"><i class="fas fa-fire"></i></div>
+            <div class="control-btn" id="shootBtn">FIRE</div>
             <div class="control-btn" id="rightBtn">→</div>
         </div>
     </div>
 
     <script type="module">
-        import { initializeApp } from "[https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js](https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js)";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "[https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js](https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js)";
-        import { getFirestore, collection, query, orderBy, limit, getDocs, onSnapshot } from "[https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js](https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js)";
-        import { getFunctions, httpsCallable } from "[https://www.gstatic.com/firebasejs/11.6.1/firebase-functions.js](https://www.gstatic.com/firebasejs/11.6.1/firebase-functions.js)"; // Import Firebase Functions
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, query, orderBy, limit, getDocs, addDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        // Use the firebaseConfig provided by the Canvas environment
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null; 
-
-        let app, db, auth, functions, userId, highScoresCollection, isFirebaseReady = false;
-
-        // Moved gameState and player declarations to the top
-        let gameState = {
-            score: 0, lives: 3, wave: 1, gameOver: false, levelComplete: false, keys: {}, lastShot: 0, shootDelay: 200, enemyDirection: 1, enemySpeed: 0.5,
-            leftPressed: false, rightPressed: false, shootPressed: false, totalShots: 0, hits: 0, isBossWave: false, countdownTimer: 0,
-            bossesDefeated: 0, gameRunning: false, paused: true, awaitingLevelTransition: false, levelTransitionStartTime: 0,
-            awaitingGameOverExplosion: false, gameOverExplosionStartTime: 0, stars: [], planets: [], levelCompleteStartTime: 0,
-            showUIScreen: true, // Set to true initially for the start overlay
-            bonusWeapon: null,
-            // New state for persistent bonus weapon
-            persistentBonusWeaponType: null,
-            persistentBonusWeaponEndTime: 0,
-            persistentBonusWeaponRemainingOnPause: 0
+        const firebaseConfig = {
+            apiKey: "AIzaSyC11da8DWHKLM4poYz7bCnT7Ow84HiQnDw",
+            authDomain: "space-wars-a2009.firebaseapp.com",
+            projectId: "space-wars-a2009",
+            storageBucket: "space-wars-a2009.firebasestorage.app",
+            messagingSenderId: "47017346441",
+            appId: "1:47017346441:web:5ca2177ee1ea392ff18d58",
+            measurementId: "G-9N4E1T9QFS"
         };
-        let player = {
-            x: 0, y: 0, // Initialized to 0, will be set correctly by resizeCanvas and restartGame
-            originalY: 0, width: 30, height: 20, speed: 5,
-            invincible: false, invincibleTimer: 0, flashToggle: false, bonusWeaponActive: false, currentBonusWeaponType: null,
-            bonusWeaponEndTime: 0, bonusWeaponRemainingOnPause: 0,
-        };
+        const initialAuthToken = null; 
+
+        let app, db, auth, userId, highScoresCollection, isFirebaseReady = false;
 
         const BULLET_POOL_SIZE = 50, PARTICLE_POOL_SIZE = 200;
         const bulletPool = [], particlePool = [];
@@ -463,12 +372,7 @@
         async function initFirebase() {
             try {
                 app = initializeApp(firebaseConfig); db = getFirestore(app); auth = getAuth(app);
-                functions = getFunctions(app); // Initialize Firebase Functions
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(auth);
-                }
+                if (initialAuthToken) await signInWithCustomToken(auth, initialAuthToken); else await signInAnonymously(auth);
                 userId = auth.currentUser?.uid || crypto.randomUUID();
                 document.getElementById('userIdDisplay').textContent = `User ID: ${userId}`; // Display full ID
                 highScoresCollection = collection(db, `artifacts/${appId}/public/data/highscores`);
@@ -496,38 +400,25 @@
 
         const canvas = document.getElementById('gameCanvas'); const ctx = canvas.getContext('2d');
         let isMobile = /Android|webOS|iPhone|iPad|IEMobile|Opera Mini/i.test(navigator.userAgent) || ('ontouchstart' in window) || window.innerWidth < 900;
-        
-        // Gyroscope variables
-        let lastGamma = 0;
-        let hasGyroscope = false;
-        const GYRO_SENSITIVITY = 0.5; // Adjust as needed for player movement speed
-
         function resizeCanvas() {
-            const gameContainer = document.getElementById('gameContainer');
-            const mobileControls = document.getElementById('mobileControls');
-
-            if (isMobile) {
-                // For mobile, canvas takes remaining height after controls
-                const availableHeight = window.innerHeight - mobileControls.offsetHeight - 20; // 20 for padding/margin
-                canvas.width = Math.min(window.innerWidth - 20, 800); // Max width 800, but responsive
-                canvas.height = Math.min(availableHeight, 600); // Max height 600, but responsive
-            } else {
-                canvas.width = 800;
-                canvas.height = 600;
-            }
-            // Re-center player on canvas resize if game is not running
-            if (!gameState.gameRunning) {
-                player.x = canvas.width / 2 - player.width / 2;
-                player.y = canvas.height - 60;
-                player.originalY = canvas.height - 60;
-            }
+            const maxWidth = Math.min(window.innerWidth - 20, 800); const maxHeight = Math.min(window.innerHeight - 20, 600);
+            if (isMobile) { canvas.width = maxWidth; canvas.height = maxHeight - 100; } else { canvas.width = 800; canvas.height = 600; }
         }
-        resizeCanvas(); 
-        window.addEventListener('resize', resizeCanvas);
-
+        resizeCanvas(); window.addEventListener('resize', resizeCanvas);
         const BOSS_EXPLOSION_ANIMATION_DURATION = 2000; const GAME_OVER_EXPLOSION_DURATION = 5000;
         const BONUS_WEAPON_WIDTH = 30; const BONUS_WEAPON_HEIGHT = 30; const BONUS_WEAPON_SPEED = 1; const BONUS_WEAPON_DURATION = 18000; const BAZOOKA_EXPLOSION_RADIUS = 70; const NORMAL_ALIEN_DROP_CHANCE = 0.005;
-        
+        let gameState = {
+            score: 0, lives: 3, wave: 1, gameOver: false, levelComplete: false, keys: {}, lastShot: 0, shootDelay: 200, enemyDirection: 1, enemySpeed: 0.5,
+            leftPressed: false, rightPressed: false, shootPressed: false, totalShots: 0, hits: 0, isBossWave: false, countdownTimer: 0,
+            bossesDefeated: 0, gameRunning: false, paused: true, awaitingLevelTransition: false, levelTransitionStartTime: 0,
+            awaitingGameOverExplosion: false, gameOverExplosionStartTime: 0, stars: [], planets: [], levelCompleteStartTime: 0,
+            showUIScreen: false, bonusWeapon: null
+        };
+        let player = {
+            x: canvas.width / 2 - 15, y: canvas.height - 60, originalY: canvas.height - 60, width: 30, height: 20, speed: 5,
+            invincible: false, invincibleTimer: 0, flashToggle: false, bonusWeaponActive: false, currentBonusWeaponType: null,
+            bonusWeaponEndTime: 0, bonusWeaponRemainingOnPause: 0,
+        };
         let bullets = [], enemies = [], enemyBullets = [], particles = [], boss = null, minions = [], drones = [], currentHighScores = [];
         const explosionColors = ['#FF0000', '#FFFF00', '#00FFFF', '#FF00FF', '#00FF00', '#FFFFFF', '#FFA500', '#8A2BE2'];
         function initBackground() {
@@ -561,7 +452,7 @@
                 bulletSpeed: bossProps.bulletSpeed, shootDelay: bossProps.shootDelay, lastShot: 0, direction: 1,
                 drawType: bossProps.drawType, bulletType: bossProps.bulletType, behaviorTimer: 0
             };
-            gameState.isBossWave = true; spawnBonusWeapon(boss.x + boss.width / 2, boss.y + boss.height / 2);
+            gameState.isBossWave = true; createMinions(); spawnBonusWeapon(boss.x + boss.width / 2, boss.y + boss.height / 2);
         }
         function spawnBonusWeapon(x = Math.random() * (canvas.width - BONUS_WEAPON_WIDTH), y = -BONUS_WEAPON_HEIGHT) {
             const weaponTypes = ['raygun', 'bazooka', 'shield', 'timeslow', 'homing', 'drone', 'scoremultiplier'];
@@ -633,73 +524,24 @@
                     player.invincible = false; player.flashToggle = false;
                 }
                 if (player.invincible) player.flashToggle = Math.floor(Date.now() / 100) % 2 === 0;
-                
                 const isGameActive = !gameState.paused && !gameState.levelComplete && !gameState.showUIScreen;
-
-                // Handle persistent bonus weapon duration
-                if (gameState.persistentBonusWeaponType && isGameActive) {
-                    if (Date.now() > gameState.persistentBonusWeaponEndTime) {
-                        gameState.persistentBonusWeaponType = null;
-                        drones = []; // Clear drones if drone weapon expires
-                        showMessage("Persistent Bonus expired!", 'info');
-                    }
+                if (player.bonusWeaponActive && isGameActive && Date.now() > player.bonusWeaponEndTime) {
+                    player.bonusWeaponActive = false; player.currentBonusWeaponType = null; drones = []; showMessage("Bonus expired!", 'info');
                 }
-
-                // If a new bonus weapon is picked up, it overrides or sets the current bonus weapon
                 if (gameState.bonusWeapon) {
                     gameState.bonusWeapon.y += gameState.bonusWeapon.speed;
                     if (gameState.bonusWeapon.y > canvas.height) gameState.bonusWeapon = null;
                     if (gameState.bonusWeapon && player.x < gameState.bonusWeapon.x + gameState.bonusWeapon.width && player.x + player.width > gameState.bonusWeapon.x && player.y < gameState.bonusWeapon.y + gameState.bonusWeapon.height && player.y + player.height > gameState.bonusWeapon.y) {
-                        // Store remaining time if current weapon was active
-                        if (gameState.persistentBonusWeaponType) {
-                            gameState.persistentBonusWeaponRemainingOnPause = gameState.persistentBonusWeaponEndTime - Date.now();
-                        } else {
-                            gameState.persistentBonusWeaponRemainingOnPause = 0;
-                        }
-                        
-                        gameState.persistentBonusWeaponType = gameState.bonusWeapon.type;
-                        gameState.persistentBonusWeaponEndTime = Date.now() + BONUS_WEAPON_DURATION;
-                        gameState.persistentBonusWeaponRemainingOnPause = 0; // Reset as it's a new weapon
-                        
-                        gameState.bonusWeapon = null; 
-                        playBonusCollectSound(); 
-                        showMessage(`BONUS: ${gameState.persistentBonusWeaponType.toUpperCase()}!`, 'info');
-
-                        if (gameState.persistentBonusWeaponType === 'drone') {
-                            // Only add a drone if one doesn't exist or is not already active
-                            if (drones.length === 0) {
-                                drones.push({ x: player.x, y: player.y, lastShot: 0, shootDelay: 500 });
-                            }
-                        } else {
-                            drones = []; // Clear drones if another weapon is picked up
-                        }
+                        if (player.bonusWeaponActive) player.bonusWeaponRemainingOnPause = player.bonusWeaponEndTime - Date.now(); else player.bonusWeaponRemainingOnPause = 0;
+                        player.bonusWeaponActive = true; player.currentBonusWeaponType = gameState.bonusWeapon.type; player.bonusWeaponEndTime = Date.now() + BONUS_WEAPON_DURATION; player.bonusWeaponRemainingOnPause = 0;
+                        gameState.bonusWeapon = null; playBonusCollectSound(); showMessage(`BONUS: ${player.currentBonusWeaponType.toUpperCase()}!`, 'info');
+                        if (player.currentBonusWeaponType === 'drone') drones = [{ x: player.x, y: player.y, lastShot: 0, shootDelay: 500 }];
                     }
                 }
-
-                // Use the persistent bonus weapon for player actions
-                player.bonusWeaponActive = !!gameState.persistentBonusWeaponType;
-                player.currentBonusWeaponType = gameState.persistentBonusWeaponType;
-
-
                 let speedFactor = 1;
                 if (player.bonusWeaponActive && player.currentBonusWeaponType === 'timeslow') speedFactor = 0.5;
-                
-                // Player movement logic (keyboard, mobile buttons, gyroscope)
-                if (gameState.keys['ArrowLeft'] || gameState.keys['a'] || gameState.keys['A'] || gameState.leftPressed) {
-                    player.x = Math.max(0, player.x - player.speed);
-                }
-                if (gameState.keys['ArrowRight'] || gameState.keys['d'] || gameState.keys['D'] || gameState.rightPressed) {
-                    player.x = Math.min(canvas.width - player.width, player.x + player.speed);
-                }
-
-                // Gyroscope movement (if available)
-                if (hasGyroscope && gameState.gamma !== undefined) {
-                    const sensitivity = GYRO_SENSITIVITY; // Adjust this value to control movement speed
-                    const deltaX = -gameState.gamma * sensitivity; // Negative for intuitive left/right tilt
-                    player.x = Math.max(0, Math.min(canvas.width - player.width, player.x + deltaX));
-                }
-
-                // Player shooting logic
+                if (gameState.keys['ArrowLeft'] || gameState.keys['a'] || gameState.keys['A'] || gameState.leftPressed) player.x = Math.max(0, player.x - player.speed);
+                if (gameState.keys['ArrowRight'] || gameState.keys['d'] || gameState.keys['D'] || gameState.rightPressed) player.x = Math.min(canvas.width - player.width, player.x + player.speed);
                 if ((gameState.keys[' '] || gameState.shootPressed) && Date.now() - gameState.lastShot > gameState.shootDelay) {
                     if (player.bonusWeaponActive) {
                         if (player.currentBonusWeaponType === 'raygun') {
@@ -713,7 +555,6 @@
                         } else if (player.currentBonusWeaponType === 'homing') {
                             bullets.push({ x: player.x + player.width / 2 - 2, y: player.y, width: 4, height: 15, speed: 5, type: 'homing' });
                         } else {
-                            // Fallback to normal if bonus weapon is active but not one of the special types
                             bullets.push({ x: player.x + player.width / 2 - 1, y: player.y, width: 2, height: 10, speed: 7, type: 'normal' });
                         }
                     } else {
@@ -721,7 +562,6 @@
                     }
                     gameState.lastShot = Date.now(); gameState.totalShots++;
                 }
-                
                 bullets = bullets.filter(bullet => {
                     if (bullet.type === 'homing') {
                         let target = null; let minDist = Infinity;
@@ -777,26 +617,15 @@
                     if (boss) minion.x += boss.direction * minion.speed_actual; else minion.y += minion.speed_actual * 0.5;
                     if (Math.random() < 0.01 * speedFactor) enemyBullets.push({ x: minion.x + minion.width / 2 - 4, y: minion.y + minion.height, width: 8, height: 16, speed: minion.speed + 1 });
                 });
-                
-                // Drone logic
-                if (gameState.persistentBonusWeaponType === 'drone' && drones.length > 0) {
+                if (player.bonusWeaponActive && player.currentBonusWeaponType === 'drone') {
                     drones.forEach(drone => {
-                        // Keep drone near player, slightly below
-                        drone.x = player.x + player.width / 2 - 10; 
-                        drone.y = player.y + player.height + 10; // Position drone below player
-
-                        // Drone shoots automatically
+                        drone.x = player.x + player.width / 2 - 10; drone.y = player.y - 30;
                         if (Date.now() - drone.lastShot > drone.shootDelay) {
                             bullets.push({ x: drone.x + 5, y: drone.y, width: 2, height: 10, speed: 7, type: 'normal' });
                             drone.lastShot = Date.now();
                         }
                     });
-                } else if (drones.length > 0 && gameState.persistentBonusWeaponType !== 'drone') {
-                    // Clear drones if the drone weapon is no longer active
-                    drones = [];
-                }
-
-
+                } else { drones = []; }
                 let moveDown = false;
                 if (!gameState.isBossWave && enemies.length > 0) {
                     let leftmost = Math.min(...enemies.map(e => e.x));
@@ -919,12 +748,10 @@
                     ctx.beginPath(); ctx.moveTo(rocketX + rocketWidth, rocketY + rocketHeight * 0.7); ctx.lineTo(rocketX + rocketWidth * 1.3, rocketY + rocketHeight); ctx.lineTo(rocketX + rocketWidth * 0.9, rocketY + rocketHeight); ctx.closePath(); ctx.fill();
                     ctx.fillStyle = '#FF8800'; ctx.beginPath(); ctx.moveTo(rocketX + rocketWidth * 0.3, rocketY + rocketHeight * 0.8); ctx.lineTo(rocketX + rocketWidth * 0.7, rocketY + rocketHeight * 0.8); ctx.lineTo(rocketX + rocketWidth / 2, rocketY + rocketHeight * 1.2); ctx.closePath(); ctx.fill();
                     ctx.fillStyle = '#FFFF00'; ctx.beginPath(); ctx.moveTo(rocketX + rocketWidth * 0.4, rocketY + rocketHeight * 0.9); ctx.lineTo(rocketX + rocketWidth * 0.6, rocketY + rocketHeight * 0.9); ctx.lineTo(rocketX + rocketWidth / 2, rocketY + rocketHeight * 1.1); ctx.closePath(); ctx.fill();
-                    
-                    // Draw bonus weapon icon if active
-                    if (gameState.persistentBonusWeaponType) {
+                    if (player.bonusWeaponActive && player.currentBonusWeaponType) {
                         ctx.font = `900 20px "Font Awesome 6 Free"`; ctx.fillStyle = '#FFD700'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
                         const iconX = player.x + player.width / 2; const iconY = player.y - 5;
-                        switch (gameState.persistentBonusWeaponType) {
+                        switch (player.currentBonusWeaponType) {
                             case 'raygun': ctx.fillText('\uf06b', iconX, iconY); break;
                             case 'bazooka': ctx.fillText('\uf1e2', iconX, iconY); break;
                             case 'shield': ctx.fillText('\uf132', iconX, iconY); break;
@@ -935,7 +762,6 @@
                         }
                         ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
                     }
-
                     if (player.bonusWeaponActive && player.currentBonusWeaponType === 'shield') {
                         const time = Date.now() * 0.005;
                         const shieldRadius = player.width * 0.8 + Math.sin(time * 5) * 5;
@@ -1139,13 +965,10 @@
                 });
                 ctx.fillStyle = '#ff0000';
                 enemyBullets.forEach(bullet => { ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height); });
-                
-                // Draw drones
                 drones.forEach(drone => {
                     ctx.fillStyle = '#AAAAAA'; ctx.beginPath(); ctx.arc(drone.x, drone.y, 8, 0, Math.PI * 2); ctx.fill();
                     ctx.fillStyle = '#00FF00'; ctx.beginPath(); ctx.arc(drone.x, drone.y + 5, 3, 0, Math.PI * 2); ctx.fill();
                 });
-
                 if (player.bonusWeaponActive && player.currentBonusWeaponType === 'scoremultiplier') {
                     ctx.font = 'bold 24px "Courier New", monospace'; ctx.fillStyle = `rgba(255, 215, 0, ${0.8 + Math.sin(Date.now() * 0.005) * 0.2})`; ctx.textAlign = 'center'; ctx.fillText('2X SCORE!', canvas.width / 2, 30); ctx.textAlign = 'left';
                 }
@@ -1163,19 +986,8 @@
         }
         function endGame() {
             gameState.gameOver = true; gameState.gameRunning = false;
-            enemies = []; enemyBullets = []; bullets = []; boss = null; minions = []; particles = []; gameState.bonusWeapon = null; 
-            drones = []; // Ensure drones are cleared on game over
-            // Save remaining time for persistent bonus weapon if it was active
-            if (gameState.persistentBonusWeaponType) {
-                gameState.persistentBonusWeaponRemainingOnPause = gameState.persistentBonusWeaponEndTime - Date.now();
-            } else {
-                gameState.persistentBonusWeaponRemainingOnPause = 0;
-            }
-            // Clear current persistent weapon state
-            gameState.persistentBonusWeaponType = null;
-            gameState.persistentBonusWeaponEndTime = 0;
-
-
+            enemies = []; enemyBullets = []; bullets = []; boss = null; minions = []; particles = []; gameState.bonusWeapon = null; drones = [];
+            if (player.bonusWeaponActive) { player.bonusWeaponRemainingOnPause = player.bonusWeaponEndTime - Date.now(); player.bonusWeaponActive = false; }
             document.getElementById('finalScore').textContent = gameState.score;
             document.getElementById('gameOver').style.display = 'flex'; gameState.showUIScreen = true;
             checkHighScore(gameState.score);
@@ -1184,13 +996,7 @@
         }
         function levelComplete() {
             gameState.levelComplete = true; gameState.gameRunning = false; gameState.levelCompleteStartTime = Date.now();
-            // Pause persistent bonus weapon timer during level transition
-            if (gameState.persistentBonusWeaponType) {
-                gameState.persistentBonusWeaponRemainingOnPause = gameState.persistentBonusWeaponEndTime - Date.now();
-            } else {
-                gameState.persistentBonusWeaponRemainingOnPause = 0;
-            }
-            
+            if (player.bonusWeaponActive) { player.bonusWeaponRemainingOnPause = player.bonusWeaponEndTime - Date.now(); player.bonusWeaponActive = false; }
             let accuracy = (gameState.totalShots === 0) ? 0 : ((gameState.hits / gameState.totalShots) * 100).toFixed(1);
             let accuracyBonus = Math.floor(parseFloat(accuracy) * 10); gameState.score += accuracyBonus;
             document.getElementById('accuracy').textContent = accuracy + '%';
@@ -1213,19 +1019,8 @@
         }
         function nextLevel() {
             gameState.wave++; gameState.totalShots = 0; gameState.hits = 0; gameState.levelComplete = false; gameState.gameRunning = true;
-            bullets = []; enemyBullets = []; particles = []; boss = null; minions = []; gameState.bonusWeapon = null; 
-            // Restore persistent bonus weapon timer for next wave
-            if (gameState.persistentBonusWeaponType && gameState.persistentBonusWeaponRemainingOnPause > 0) {
-                gameState.persistentBonusWeaponEndTime = Date.now() + gameState.persistentBonusWeaponRemainingOnPause;
-                gameState.persistentBonusWeaponRemainingOnPause = 0;
-            } else {
-                // If it was drone, re-add it if it should persist
-                if (gameState.persistentBonusWeaponType === 'drone' && drones.length === 0) {
-                    drones.push({ x: player.x, y: player.y, lastShot: 0, shootDelay: 500 });
-                }
-            }
-
-
+            bullets = []; enemyBullets = []; particles = []; boss = null; minions = []; gameState.bonusWeapon = null; drones = [];
+            if (player.bonusWeaponRemainingOnPause > 0) { player.bonusWeaponEndTime = Date.now() + player.bonusWeaponRemainingOnPause; player.bonusWeaponActive = true; player.bonusWeaponRemainingOnPause = 0; }
             if (gameState.wave % 3 === 0) createBoss(); else createEnemies();
             if (isSoundOn) backgroundMusic.start();
         }
@@ -1239,11 +1034,7 @@
                 awaitingLevelTransition: false, levelTransitionStartTime: 0,
                 awaitingGameOverExplosion: false, gameOverExplosionStartTime: 0,
                 stars: [], planets: [], levelCompleteStartTime: 0,
-                showUIScreen: true, // Set to true when showing the start overlay
-                bonusWeapon: null,
-                persistentBonusWeaponType: null, // Reset persistent weapon
-                persistentBonusWeaponEndTime: 0,
-                persistentBonusWeaponRemainingOnPause: 0
+                showUIScreen: false, bonusWeapon: null
             };
             player = {
                 x: canvas.width / 2 - 15, y: canvas.height - 60, originalY: canvas.height - 60, width: 30, height: 20, speed: 5,
@@ -1285,50 +1076,24 @@
                 document.getElementById('gameOver').style.display = 'flex';
             }
         }
-        // Reverted to Cloud Function call for submitInitials
         async function submitInitials() {
             const initialsInput = document.getElementById('initialsInput');
             let initials = initialsInput.value.trim().toUpperCase();
-
             if (initials.length !== 3) {
-                showMessage("Please enter exactly 3 initials.", 'error');
-                return;
+                showMessage("Please enter exactly 3 initials.", 'error'); return;
             }
-
-            if (!isFirebaseReady) {
-                showMessage("Firebase not ready. Please try again.", 'error');
-                return;
+            if (!isFirebaseReady || !highScoresCollection) {
+                showMessage("Leaderboard not ready. Please try again.", 'error'); return;
             }
-
             try {
-                // Get the callable function
-                const addHighScore = httpsCallable(functions, 'submitHighScore');
-
-                // Call the function with the score and initials
-                const result = await addHighScore({
-                    initials: initials,
-                    score: gameState.score,
-                    userId: userId, // Pass userId from client
-                    appId: appId // Pass appId from client
+                await addDoc(highScoresCollection, {
+                    initials: initials, score: gameState.score, timestamp: Date.now()
                 });
-
-                if (result.data.success) {
-                    showMessage("High score submitted successfully!", 'info');
-                } else {
-                    showMessage(`Failed to submit score: ${result.data.message}`, 'error');
-                }
-
                 document.getElementById('initialsInputContainer').style.display = 'none';
-                document.getElementById('gameOver').style.display = 'flex';
-                gameState.showUIScreen = true;
-                listenForHighScores(); // Refresh leaderboard
-            } catch (error) {
-                console.error("Error calling Cloud Function:", error);
-                let errorMessage = "Failed to submit score due to server error.";
-                if (error.code) {
-                    errorMessage = `Error: ${error.code.replace(/-/g, ' ')}. ${error.message}`;
-                }
-                showMessage(errorMessage, 'error');
+                document.getElementById('gameOver').style.display = 'flex'; gameState.showUIScreen = true;
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                showMessage("Failed to save score. Please try again.", 'error');
             }
         }
         function displayLeaderboard(scores) {
@@ -1375,23 +1140,23 @@
         document.addEventListener('keydown', async (e) => {
             gameState.keys[e.key] = true;
             if (gameState.paused && e.key === ' ') {
-                startGame(); // Call unified start game function
+                gameState.paused = false; document.getElementById('gameStartOverlay').style.display = 'none';
+                gameState.gameRunning = true; gameState.showUIScreen = false;
+                if (player.bonusWeaponRemainingOnPause > 0) { player.bonusWeaponEndTime = Date.now() + player.bonusWeaponRemainingOnPause; player.bonusWeaponActive = true; player.bonusWeaponRemainingOnPause = 0; }
+                pauseIcon.classList.remove('fa-play'); pauseIcon.classList.add('fa-pause');
+                if (isSoundOn) {
+                    if (backgroundMusic.audioContext.state === 'suspended') { await backgroundMusic.audioContext.resume(); backgroundMusic.start(); backgroundMusic.setVolume(0.25); }
+                    else { backgroundMusic.start(); backgroundMusic.setVolume(0.25); }
+                }
                 e.preventDefault(); return;
             }
             if (e.key.toLowerCase() === 'p' && !gameState.gameOver && !gameState.showUIScreen) {
                 if (!gameState.awaitingLevelTransition && !gameState.awaitingGameOverExplosion) {
                     if (backgroundMusic.audioContext.state === 'suspended') await backgroundMusic.audioContext.resume();
                     if (gameState.paused) {
-                        // Restore persistent bonus weapon timer if paused
-                        if (gameState.persistentBonusWeaponType && gameState.persistentBonusWeaponRemainingOnPause > 0) {
-                            gameState.persistentBonusWeaponEndTime = Date.now() + gameState.persistentBonusWeaponRemainingOnPause;
-                            gameState.persistentBonusWeaponRemainingOnPause = 0;
-                        }
+                        if (player.bonusWeaponRemainingOnPause > 0) { player.bonusWeaponEndTime = Date.now() + player.bonusWeaponRemainingOnPause; player.bonusWeaponActive = true; player.bonusWeaponRemainingOnPause = 0; }
                     } else {
-                        // Pause persistent bonus weapon timer
-                        if (gameState.persistentBonusWeaponType) {
-                            gameState.persistentBonusWeaponRemainingOnPause = gameState.persistentBonusWeaponEndTime - Date.now();
-                        }
+                        if (player.bonusWeaponActive) { player.bonusWeaponRemainingOnPause = player.bonusWeaponEndTime - Date.now(); player.bonusWeaponActive = false; }
                     }
                     gameState.paused = !gameState.paused;
                     if (gameState.paused) {
@@ -1413,92 +1178,58 @@
             }
         });
         document.addEventListener('keyup', (e) => { gameState.keys[e.key] = false; });
-
-        // Unified function to start the game
-        async function startGame() {
-            if (gameState.paused) {
-                gameState.paused = false; 
-                document.getElementById('gameStartOverlay').style.display = 'none';
-                gameState.gameRunning = true; 
-                gameState.showUIScreen = false; // Game is running, no UI screen active
-                
-                // Restore persistent bonus weapon timer if paused
-                if (gameState.persistentBonusWeaponType && gameState.persistentBonusWeaponRemainingOnPause > 0) {
-                    gameState.persistentBonusWeaponEndTime = Date.now() + gameState.persistentBonusWeaponRemainingOnPause;
-                    gameState.persistentBonusWeaponRemainingOnPause = 0;
-                } else if (gameState.persistentBonusWeaponType === 'drone' && drones.length === 0) {
-                    // Re-add drone if it was active and cleared (e.g., on game over screen)
-                    drones.push({ x: player.x, y: player.y, lastShot: 0, shootDelay: 500 });
-                }
-
-                pauseIcon.classList.remove('fa-play'); 
-                pauseIcon.classList.add('fa-pause');
-                if (isSoundOn) {
-                    if (backgroundMusic.audioContext.state === 'suspended') { 
-                        await backgroundMusic.audioContext.resume(); 
-                        backgroundMusic.start(); 
-                        backgroundMusic.setVolume(0.25); 
-                    } else { 
-                        backgroundMusic.start(); 
-                        backgroundMusic.setVolume(0.25); 
-                    }
-                }
-            }
-        }
-
         function setupMobileControls() {
             if (isMobile) {
                 document.getElementById('mobileControls').classList.add('show');
                 document.getElementById('gameStartOverlay').querySelector('#mobileStartInstructions').style.display = 'block';
-                // Only show desktop instructions if not mobile
-                document.querySelectorAll('#gameStartOverlay .desktop-instruction').forEach(el => el.style.display = 'none');
-
-                const leftBtn = document.getElementById('leftBtn'); 
-                const rightBtn = document.getElementById('rightBtn'); 
-                const shootBtn = document.getElementById('shootBtn');
-                
-                // Add event listeners for touch and mouse for mobile controls
+                document.querySelectorAll('#gameStartOverlay .desktop-instruction').forEach(el => el.style.display = 'block');
+                const leftBtn = document.getElementById('leftBtn'); const rightBtn = document.getElementById('rightBtn'); const shootBtn = document.getElementById('shootBtn');
                 leftBtn.addEventListener('touchstart', (e) => { e.preventDefault(); gameState.leftPressed = true; });
                 leftBtn.addEventListener('touchend', (e) => { e.preventDefault(); gameState.leftPressed = false; });
                 rightBtn.addEventListener('touchstart', (e) => { e.preventDefault(); gameState.rightPressed = true; });
                 rightBtn.addEventListener('touchend', (e) => { e.preventDefault(); gameState.rightPressed = false; });
-                
                 shootBtn.addEventListener('touchstart', async (e) => {
-                    e.preventDefault(); 
-                    gameState.shootPressed = true;
+                    e.preventDefault(); gameState.shootPressed = true;
+                    if (gameState.paused) {
+                        gameState.paused = false; document.getElementById('gameStartOverlay').style.display = 'none';
+                        gameState.gameRunning = true; gameState.showUIScreen = false;
+                        if (player.bonusWeaponRemainingOnPause > 0) { player.bonusWeaponEndTime = Date.now() + player.bonusWeaponRemainingOnPause; player.bonusWeaponActive = true; player.bonusWeaponRemainingOnPause = 0; }
+                        pauseIcon.classList.remove('fa-play'); pauseIcon.classList.add('fa-pause');
+                        if (isSoundOn) {
+                            if (backgroundMusic.audioContext.state === 'suspended') { await backgroundMusic.audioContext.resume(); backgroundMusic.start(); backgroundMusic.setVolume(0.25); }
+                            else { backgroundMusic.start(); backgroundMusic.setVolume(0.25); }
+                        }
+                    }
                 });
                 shootBtn.addEventListener('touchend', (e) => { e.preventDefault(); gameState.shootPressed = false; });
-                
-                // Also add mousedown/mouseup for desktop testing on mobile layout
                 leftBtn.addEventListener('mousedown', () => gameState.leftPressed = true);
                 leftBtn.addEventListener('mouseup', () => gameState.leftPressed = false);
                 rightBtn.addEventListener('mousedown', () => gameState.rightPressed = true);
                 rightBtn.addEventListener('mouseup', () => gameState.rightPressed = false);
                 shootBtn.addEventListener('mousedown', async () => {
                     gameState.shootPressed = true;
+                    if (gameState.paused) {
+                        gameState.paused = false; document.getElementById('gameStartOverlay').style.display = 'none';
+                        gameState.gameRunning = true; gameState.showUIScreen = false;
+                        if (player.bonusWeaponRemainingOnPause > 0) { player.bonusWeaponEndTime = Date.now() + player.bonusWeaponRemainingOnPause; player.bonusWeaponActive = true; player.bonusWeaponRemainingOnPause = 0; }
+                        pauseIcon.classList.remove('fa-play'); pauseIcon.classList.add('fa-pause');
+                        if (isSoundOn) {
+                            if (backgroundMusic.audioContext.state === 'suspended') { await backgroundMusic.audioContext.resume(); backgroundMusic.start(); backgroundMusic.setVolume(0.25); }
+                            else { backgroundMusic.start(); backgroundMusic.setVolume(0.25); }
+                        }
+                    }
                 });
                 shootBtn.addEventListener('mouseup', () => gameState.shootPressed = false);
-
-                // Prevent context menu on long press
                 document.addEventListener('contextmenu', (e) => e.preventDefault());
-
                 setupVirtualKeyboard();
-                setupGyroscope(); // Initialize gyroscope
             } else {
                 document.getElementById('mobileControls').classList.remove('show');
                 document.querySelectorAll('#gameStartOverlay .desktop-instruction').forEach(el => el.style.display = 'block');
                 document.getElementById('gameStartOverlay').querySelector('#mobileStartInstructions').style.display = 'none';
             }
         }
-
         function setupVirtualKeyboard() {
-            const keyboardDiv = document.getElementById('keyboard'); 
-            const keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
-            const inputField = document.getElementById('initialsInput');
-            
-            // Clear existing keyboard buttons to prevent duplicates on re-setup
-            keyboardDiv.innerHTML = ''; 
-
+            const keyboardDiv = document.getElementById('keyboard'); const keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; const inputField = document.getElementById('initialsInput');
             keys.split('').forEach(key => {
                 const btn = document.createElement('div'); btn.classList.add('key-btn'); btn.textContent = key;
                 btn.addEventListener('click', () => { if (inputField.value.length < 3) inputField.value += key; });
@@ -1510,28 +1241,6 @@
             const enterBtn = document.createElement('div'); enterBtn.classList.add('key-btn', 'enter'); enterBtn.textContent = 'ENTER';
             enterBtn.addEventListener('click', submitInitials); keyboardDiv.appendChild(enterBtn);
         }
-
-        function setupGyroscope() {
-            if (window.DeviceOrientationEvent) {
-                window.addEventListener('deviceorientation', handleOrientation);
-                hasGyroscope = true;
-                showMessage("Gyroscope enabled!", 'info');
-            } else {
-                showMessage("Gyroscope not supported on this device.", 'info');
-                hasGyroscope = false;
-            }
-        }
-
-        function handleOrientation(event) {
-            if (!gameState.gameRunning || gameState.paused) return; // Only apply if game is running and not paused
-            // gamma is the front-to-back tilt, in degrees, where positive values tilt the device to the right.
-            // We use gamma for left/right movement.
-            const gamma = event.gamma; 
-            if (gamma !== null) {
-                gameState.gamma = gamma; // Store gamma in gameState
-            }
-        }
-
         function animateTitle(elementId) {
             const titleElement = document.getElementById(elementId);
             const textSpans = titleElement.querySelectorAll('span:not(.rocket-icon)');
@@ -1539,35 +1248,21 @@
                 span.style.animation = 'rainbow-text 9s linear infinite';
                 span.style.animationDelay = `${index * 0.0005}s`;
                 span.style.setProperty('--hue-offset', `${index * 30}deg`);
-                // Removed: span.style.color = ''; to preserve animation color
+                span.style.color = '';
             });
         }
-
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('submitInitialsBtn').addEventListener('click', submitInitials);
-            
-            // Restart game on click/touch of game over title
-            const gameOverTitleElement = document.getElementById('gameOverTitle');
-            gameOverTitleElement.addEventListener('click', restartGame);
-            gameOverTitleElement.addEventListener('touchstart', restartGame);
-
+            document.getElementById('gameOverTitle').addEventListener('click', restartGame);
+            document.getElementById('gameOverTitle').addEventListener('touchstart', restartGame);
             if (isSoundOn) { soundIcon.classList.remove('fa-volume-off'); soundIcon.classList.add('fa-volume-up'); }
             else { soundIcon.classList.remove('fa-volume-up'); soundIcon.classList.add('fa-volume-off'); }
-            
-            // Set initial pause icon state
             pauseIcon.classList.remove('fa-pause'); pauseIcon.classList.add('fa-play');
-            
             animateTitle('gameTitle');
-            setupMobileControls(); // Call setupMobileControls after DOM is loaded
-            
-            // Add event listener to gameStartOverlay for touch to start
-            document.getElementById('gameStartOverlay').addEventListener('click', startGame);
-            document.getElementById('gameStartOverlay').addEventListener('touchstart', startGame);
-
-
-            initFirebase().then(() => {
-                initBackground(); createEnemies(); gameLoop();
-            });
+        });
+        setupMobileControls();
+        initFirebase().then(() => {
+            initBackground(); createEnemies(); gameLoop();
         });
     </script>
 </body>

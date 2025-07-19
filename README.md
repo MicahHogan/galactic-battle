@@ -1,6 +1,6 @@
 # **Galactic Battle**
 
-\!\[Galactic Battle Title Screen\](https://www.raw.githubusercontent.com/MicahHogan/main/galactic-battle/galactic-battle-title-screen.png)
+\!\[Galactic Battle Title Screen\](https://raw.githubusercontent.com/MicahHogan/galactic-battle/main/galactic-battle-title-screen.png)
 
 \!\[Galactic Battle Gameplay\](https://github.com/MicahHogan/galactic-battle/blob/main/galactic-battle-01.png)
 

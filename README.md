@@ -137,4 +137,6 @@ Contributions are welcome\! If you have suggestions for improvements, bug fixes,
 
 ## **License**
 
+
 This project is open-source and available under the [MIT License](https://www.google.com/search?q=LICENSE).
+1d524c77e229adcd8ad1ec2f2dc576195a2e06b8

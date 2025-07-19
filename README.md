@@ -1,10 +1,10 @@
 # **Galactic Battle**
 
-\!\[Galactic Battle Title Screen\](https://github.com/MicahHogan/galactic-battle/blob/main/galactic-battle-title-screen.png "Galactic Battle Title Screen")
+\!\[Galactic Battle Title Screen\](https://github.com/MicahHogan/galactic-battle/blob/main/galactic-battle-title-screen.png)
 
-\!\[Galactic Battle Gameplay\](https://github.com/MicahHogan/galactic-battle/blob/main/galactic-battle-01.png "Galactic Battle Game Play")
+\!\[Galactic Battle Gameplay\](https://github.com/MicahHogan/galactic-battle/blob/main/galactic-battle-01.png)
 
-\!\[Galactic Battle Gameplay\](https://github.com/MicahHogan/galactic-battle/blob/main/galactic-battle-02.png "Galactic Battle Game Play")
+\!\[Galactic Battle Gameplay\](https://github.com/MicahHogan/galactic-battle/blob/main/galactic-battle-02.png)
 
 ## **Table of Contents**
 

@@ -4,7 +4,7 @@
 
 ![Galactic Battle Gameplay](https://raw.githubusercontent.com/MicahHogan/galactic-battle/main/galactic-battle-01.png "Galactic Battle Game Play")
 
-![Galactic Battle Gameplay](https://raw.githubusercontent.com/MicahHogan/galactic-battle/main/galactic-battle-02.png "Galactic Battle Game Play")
+![Galactic Battle Gameplay](galactic-battle-02.png "Galactic Battle Game Play")
 
 ## **Table of Contents**
 
@@ -76,7 +76,7 @@ To run this game locally:
    git clone https://github.com/your-username/galactic-battle.git  
    cd galactic-battle
 
-2. Open galactic-battle-production.html in your web browser.  
+2. Open public/index.html in your web browser.  
    You can simply double-click the file, or use a local web server (e.g., python \-m http.server or Live Server VS Code extension) for better security context and future development.
 
 ## **Firebase Configuration**
@@ -89,8 +89,8 @@ This game uses Firebase Firestore for its global leaderboard. To enable the lead
 2. **Add a Web App to your Project:**  
    * In your Firebase project, click the "Web" icon (\</\>) to add a web app.  
    * Follow the setup instructions. You'll get a firebaseConfig object.  
-3. **Update firebaseConfig in galactic-battle-production.html:**  
-   * Open galactic-battle-production.html.  
+3. **Update firebaseConfig in public/index.html:**  
+   * Open public/index.html.  
    * Locate the firebaseConfig object within the \<script type="module"\> tag:
 
    const firebaseConfig \= {  

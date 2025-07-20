@@ -8,14 +8,14 @@
 
 ## **Table of Contents**
 
-* [About the Game](https://www.google.com/search?q=%23about-the-game)  
-* [Features](https://www.google.com/search?q=%23features)  
-* [How to Play](https://www.google.com/search?q=%23how-to-play)  
-* [Technologies Used](https://www.google.com/search?q=%23technologies-used)  
-* [Setup and Installation](https://www.google.com/search?q=%23setup-and-installation)  
-* [Firebase Configuration](https://www.google.com/search?q=%23firebase-configuration)  
-* [Contributing](https://www.google.com/search?q=%23contributing)  
-* [License](https://www.google.com/search?q=%23license)
+* [About the Game](#about-the-game)  
+* [Features](#features)  
+* [How to Play](#how-to-play)  
+* [Technologies Used](#technologies-used)  
+* [Setup and Installation](#setup-and-installation)  
+* [Firebase Configuration](#firebase-configuration)  
+* [Contributing](#contributing)  
+* [License](#license)
 
 ## **About the Game**
 
